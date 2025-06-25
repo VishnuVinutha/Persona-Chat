@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Persona Chat with Gemini</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Persona-Based Chat</h1>
+        <form method="POST">
+            <label for="persona">Choose a Persona:</label>
+            <select name="persona" id="persona" onchange="this.form.submit()">
+                {% for name in personas %}
+                    <option value="{{ name }}" {% if name == selected %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <textarea name="user_input" placeholder="Type your message here..." required></textarea>
+            <button type="submit">Send</button>
+        </form>
+
+
+        <div class="chat-box">
+            {% for role, content in messages %}
+                <p class="{{ role }}"><strong>{{ role.capitalize() }}:</strong> {{ content }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
